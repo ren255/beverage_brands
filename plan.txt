@@ -1,0 +1,19 @@
+# 取り組む内容 大量の画像がある 10k 個 それぞれにcan や調味料など筒状型の液体を保持するものが複数載っている 
+また 各canの位置のbboxもトレーニング用として持っている 新しい画像でもcanのbboxを生成できるようにまたcan以外のbboxを作らないように
+YOLOv8をベースとしてトレーニングする このYOLOでbbox生成->cutが出来た
+そのごrembg + isnet-general-useをつかい背景を消す。
+では次に分類専用モデルを作ろう! 92個のカテゴリがある。 
+以下が簡略化された計画 
+
+pre prosess : YOLOv8,rembg + isnet-general-use,
+base models : ConvNeXt-Base ,EfficientNet-B4 (ImageNet事前学習),Swin Transformer, 
+EfficientNetV2-M,ResNet50-D	,ConvNeXt-Small	,Swin-Small	,
+手法: ensemble,Multi-Scale Training,
+ ensemble手法: 単純平均 -> 重み付き平均 -> Stacking -> Hierarchical??
+cloudflared
+base modelには
+メインタスク (91クラス): 80%
+補助タスク群: 20% 各5%×4 (スーパーカテゴリ,サブカテゴリ ,サブカテゴリタイプ,容量)
+を予測させメインタスクの結果のみを使用する
+
+映る文字は特に使わない。BERTでもだめだ。
