@@ -1,3 +1,6 @@
 /dataset/images
 /train_sample/Ultralytics/images
 /train_sample/Ultralytics/labels
+
+*.h5
+*.pt
